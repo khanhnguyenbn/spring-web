@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<%@page import="vn.topica.itlab4.springweb.model.ProductModel"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset= UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,38 +19,21 @@
 <title>Shop Homepage - Start Bootstrap Template</title>
 
 <!-- Bootstrap core CSS -->
-<link href="/spring-web/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="/spring-web/resources/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="/spring-web/resources/css/shop-homepage.css" rel="stylesheet">
+<link href="/spring-web/resources/css/shop-homepage.css"
+	rel="stylesheet">
+
+<link rel="stylesheet" type="text/css"
+	href="/spring-web/resources/fontawsome/css/all.min.css">
 
 </head>
 
 <body>
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">Start Bootstrap</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Home
-							<span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Services</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	
+	<%@include file="/resources/common/header.jsp" %>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -57,9 +44,10 @@
 
 				<h1 class="my-4">Shop Name</h1>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Category 1</a> <a href="#"
-						class="list-group-item">Category 2</a> <a href="#"
-						class="list-group-item">Category 3</a>
+				
+					<c:forEach var="type" items="${types }">
+						<a href="#" class="list-group-item">${type }</a> 
+					</c:forEach>
 				</div>
 
 			</div>
@@ -77,15 +65,15 @@
 					</ol>
 					<div class="carousel-inner" role="listbox">
 						<div class="carousel-item active">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350"
+							<img class="d-block img-fluid" src="/spring-web/resources/img/banner1.jpg"
 								alt="First slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350"
+							<img class="d-block img-fluid" src="/spring-web/resources/img/banner2.jpg"
 								alt="Second slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350"
+							<img class="d-block img-fluid" src="/spring-web/resources/img/banner3.jpg"
 								alt="Third slide">
 						</div>
 					</div>
@@ -102,121 +90,26 @@
 
 				<div class="row">
 
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item One</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Two</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor
-									sit amet.</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
+					<c:forEach var="product" items="${products }">
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="/spring-web/web/product/${product.id }">
+								<img class="card-img-top" src="${product.img }" alt=""></a>
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="/spring-web/web/product/${product.id }">${product.name }</a>
+									</h4>
+									<h5>$${product.price }</h5>
+									<p class="card-text">Lorem ipsum dolor sit amet,
+										consectetur adipisicing elit. Amet numquam aspernatur!</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733;
+										&#9733; &#9734;</small>
+								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Three</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Four</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Five</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor
-									sit amet.</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Six</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 
 				</div>
 				<!-- /.row -->
@@ -240,8 +133,7 @@
 	</footer>
 
 	<!-- Bootstrap core JavaScript -->
-	<script
-		src="/spring-web/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/spring-web/resources/vendor/jquery/jquery.min.js"></script>
 	<script
 		src="/spring-web/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

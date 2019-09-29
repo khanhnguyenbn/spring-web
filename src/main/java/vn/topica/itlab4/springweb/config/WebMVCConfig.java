@@ -14,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 public class WebMVCConfig extends WebMvcConfigurerAdapter {
 
-	// Cấu hình để sử dụng các file nguồn tĩnh (html, image, ..)
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")

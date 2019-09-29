@@ -19,7 +19,7 @@
 			<img id="profile-img" class="profile-img-card"
 				src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
 			<p id="profile-name" class="profile-name-card"></p>
-			<form method="POST" class="form-signin" modelAttribute="user" action = "/spring-web/user/login">
+			<form method="POST" class="form-signin" modelAttribute="user" action = "/spring-web/web/user/login">
 				<span id="reauth-email" class="reauth-email"></span>
 				<input type="text" id="inputEmail" class="form-control" name="userName"
 					placeholder="User Name" required autofocus>

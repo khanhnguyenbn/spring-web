@@ -12,22 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.topica.itlab4.springweb.model.UserModel;
-import vn.topica.itlab4.springweb.services.UserService;
+import vn.topica.itlab4.springweb.services.IUserService;
+import vn.topica.itlab4.springweb.services.UserServiceImpl;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 
-	@GetMapping(value = "/user/login")
+	@GetMapping(value = "/web/user/login")
 	public ModelAndView displayLogin() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
 
-	@PostMapping("/user/login")
+	@PostMapping("/web/user/login")
 	public ModelAndView processLogin(@ModelAttribute("user") UserModel userModel, HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -36,8 +38,8 @@ public class UserController {
 		if (user != null) {
 			if (userModel.getPassword().equals(user.getPassword())) {
 				HttpSession session = request.getSession();
-				session.setAttribute("userId", user.getId());
-				modelAndView.setViewName("/home/index");
+				session.setAttribute("user", user);
+				modelAndView.setViewName("redirect:/web/product/home");
 				return modelAndView;
 			} else {
 				modelAndView.addObject("msg", "Your password is not correct !");
@@ -51,30 +53,31 @@ public class UserController {
 			return modelAndView;
 		}
 	}
-	
+
+	@RequestMapping(value = "/web/user/logout")
 	public ModelAndView logout(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/login");
-		
+
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
+		ModelAndView modelAndView = new ModelAndView("login");
+
 		return modelAndView;
 	}
-	
-	@RequestMapping(value = "/*")
+
+	@RequestMapping(value = "/web/*")
 	public ModelAndView doLogin(HttpServletRequest request) {
 		System.out.println("/////////////////////");
 		HttpSession session = request.getSession();
-		
-		Integer userId = (Integer) session.getAttribute("userId");
-		
-		if(userId == null) {
-			return new ModelAndView("/user/login");
+
+		UserModel user = (UserModel) session.getAttribute("user");
+
+		if (user == null) {
+			return new ModelAndView("redirect:/web/user/login");
 		} else {
-			return new ModelAndView("/home/index");
+			return new ModelAndView("redirect:/web/product/home");
 		}
-		
-		
+
 	}
 
 }
