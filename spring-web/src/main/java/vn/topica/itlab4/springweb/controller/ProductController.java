@@ -34,6 +34,7 @@ public class ProductController {
 		
 		System.out.println("this is product controller");
 		System.out.println("the change 2");
+		System.out.println("the change 3");
 		
 		return modelAndView;
 	}
